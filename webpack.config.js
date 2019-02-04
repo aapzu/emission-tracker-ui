@@ -48,6 +48,13 @@ module.exports = {
                     name: 'images/[name].[ext]',
                 },
             },
+            {
+                test: /\.css$/,
+                use: [
+                    !isProduction() ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    'css-loader',
+                ],
+            },
             // .pcss files treated as modules
             {
                 test: /\.pcss$/,
