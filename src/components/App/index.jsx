@@ -1,11 +1,12 @@
-// @flow
-
 import React, { useState } from 'react'
 import { Container, Row, Col } from 'react-grid-system'
+
 import Search from '../Search'
+import Graph from '../Graph'
 
 const App = () => {
-    const [country, setCountry] = useState(null)
+    const [country, setCountry] = useState('Finland')
+    const [perCapita, setPerCapita] = useState(false)
 
     return (
         <Container>
@@ -30,7 +31,7 @@ const App = () => {
                         lg: 3,
                     }}
                 >
-                    <Search onChange={setCountry} />
+                    <Search onChange={setCountry} onPerCapitaChange={(val) => setPerCapita(val)} />
                 </Col>
             </Row>
             <Row>
@@ -42,7 +43,7 @@ const App = () => {
                         lg: 3,
                     }}
                 >
-                    <div>{country}</div>
+                    <Graph country={country} perCapita={perCapita} />
                 </Col>
             </Row>
         </Container>

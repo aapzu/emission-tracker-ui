@@ -2,7 +2,6 @@ const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WebpackNotifierPlugin = require('webpack-notifier')
-const FlowBabelWebpackPlugin = require('flow-babel-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
@@ -111,7 +110,6 @@ module.exports = {
             canPrint: true,
         }),
     ] : [
-        new FlowBabelWebpackPlugin(),
         new WebpackNotifierPlugin(),
     ]),
     devtool: isProduction() ? 'source-map' : 'eval-source-map',

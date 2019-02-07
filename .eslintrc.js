@@ -6,12 +6,8 @@ module.exports = exports = {
     extends: [
         'eslint:recommended',
         'airbnb',
-        'plugin:flowtype/recommended',
     ],
     parser: 'babel-eslint',
-    settings: {
-        onlyFilesWithFlowAnnotation: true,
-    },
     env: {
         browser: true,
     },
@@ -20,13 +16,7 @@ module.exports = exports = {
             requireForBlockBody: false,
         }],
         'curly': [ERROR, 'all'],
-        'flowtype/define-flow-type': ERROR,
-        'flowtype/newline-after-flow-annotation': [ERROR, 'always'],
-        'indent': [ERROR, 4, {
-            SwitchCase: WARN,
-            MemberExpression: WARN,
-            ObjectExpression: WARN,
-        }],
+        'indent': [ERROR, 4],
         'max-len': [ERROR, {
             code: 150
         }],
