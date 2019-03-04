@@ -87,6 +87,7 @@ module.exports = {
         }),
         new webpack.EnvironmentPlugin([
             'API_BASE_URL',
+            'CACHE_KEY',
         ]),
     ].concat(isProduction() ? [
         // Production plugins

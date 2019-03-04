@@ -7,9 +7,34 @@ import Graph from '../Graph'
 import styles from './app.pcss'
 import PerCapitaCheckbox from '../PerCapitaCheckbox'
 
+const { CACHE_KEY } = process.env
+
+let cache = {}
+if (typeof window.localStorage !== 'undefined') {
+    cache = JSON.parse(window.localStorage.getItem(CACHE_KEY))
+}
+const setToCache = (country, perCapita) => {
+    if (typeof window.localStorage !== 'undefined') {
+        window.localStorage.setItem(CACHE_KEY, JSON.stringify({
+            country,
+            perCapita,
+        }))
+    }
+}
+
 const App = () => {
-    const [country, setCountry] = useState('Finland')
-    const [perCapita, setPerCapita] = useState(false)
+    const [country, setCountryToState] = useState((cache && cache.country) || 'Finland')
+    const [perCapita, setPerCapitaToState] = useState((cache && cache.perCapita) || false)
+
+    const setCountry = (c) => {
+        setCountryToState(c)
+        setToCache(c, perCapita)
+    }
+
+    const setPerCapita = (p) => {
+        setPerCapitaToState(p)
+        setToCache(country, p)
+    }
 
     return (
         <Container>

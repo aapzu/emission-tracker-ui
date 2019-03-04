@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { func } from 'prop-types'
 import Autosuggest from 'react-autosuggest'
 import { getCountries } from '../../utils/api'
@@ -20,7 +20,6 @@ const Icon = () => (
 const Search = ({ onChange }) => {
     const [value, setValue] = useState('')
     const [countries, setCountries] = useState([])
-    const inputEl = useRef(null)
 
     const onSuggestionsFetchRequested = ({ value: newVal }) => {
         setCountries([])
@@ -36,9 +35,6 @@ const Search = ({ onChange }) => {
     const onSuggestionSelected = (e, { suggestion }) => {
         onChange(suggestion)
         setValue('')
-        if (inputEl) {
-            inputEl.current.blur()
-        }
     }
     const onBlur = () => {
         setValue('')
@@ -55,9 +51,9 @@ const Search = ({ onChange }) => {
                     renderSuggestion={renderSuggestion}
                     onSuggestionSelected={onSuggestionSelected}
                     onBlur={onBlur}
+                    focusInputOnSuggestionClick={false}
                     inputProps={{
                         value,
-                        ref: inputEl,
                         placeholder: 'Search for a country',
                         onChange: onInputChange,
                     }}

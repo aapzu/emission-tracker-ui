@@ -9,34 +9,30 @@ const Graph = ({ country, perCapita }) => {
     const [populations, setPopulations] = useState([])
     const [emissions, setEmissions] = useState([])
     const [emissionsPerCapita, setEmissionsPerCapita] = useState([])
-    const [populationsLoading, setPopulationsLoading] = useState(false)
-    const [emissionsLoading, setEmissionsLoading] = useState(false)
+    // const [populationsLoading, setPopulationsLoading] = useState(false)
+    // const [emissionsLoading, setEmissionsLoading] = useState(false)
 
     useEffect(() => {
         if (country) {
-            setEmissionsLoading(true)
-            setPopulationsLoading(true)
+            // setEmissionsLoading(true)
+            // setPopulationsLoading(true)
             getEmissionsByCountry(country)
                 .then(({ data }) => {
-                    setEmissionsLoading(false)
+                    // setEmissionsLoading(false)
                     setEmissions(data.sort((a, b) => a.year - b.year))
                 })
             getEmissionsByCountry(country, true)
                 .then(({ data }) => {
-                    setEmissionsLoading(false)
+                    // setEmissionsLoading(false)
                     setEmissionsPerCapita(data.sort((a, b) => a.year - b.year))
                 })
             getPopulationsByCountry(country)
                 .then(({ data }) => {
-                    setPopulationsLoading(false)
+                    // setPopulationsLoading(false)
                     setPopulations(data.sort((a, b) => a.year - b.year))
                 })
         }
     }, [country])
-
-    console.log(populationsLoading)
-    console.log(emissionsLoading)
-    console.log(perCapita)
 
     const populationData = populations.filter((p) => p.value).map(({ year, value }) => ([
         new Date(year).getTime(),
@@ -47,8 +43,6 @@ const Graph = ({ country, perCapita }) => {
         new Date(year).getTime(),
         parseFloat(value),
     ]))
-
-    console.log(emissionData)
 
     const gridColor = '#333333'
 
@@ -99,6 +93,17 @@ const Graph = ({ country, perCapita }) => {
             minorGridLineColor: gridColor,
             tickColor: gridColor,
             tickWidth: 1,
+            labels: {
+                formatter() {
+                    if (this.value > 1e9) {
+                        return `${(this.value / 1e9).toFixed(2)}Mrd`
+                    }
+                    if (this.value > 1e6) {
+                        return `${(this.value / 1e6).toFixed(2)}M`
+                    }
+                    return this.value
+                },
+            },
         }, {
             title: {
                 text: perCapita ? 'CO2 Emissions Per Capita' : 'CO2 Emissions',
@@ -120,6 +125,9 @@ const Graph = ({ country, perCapita }) => {
             yAxis: 1,
         }],
         credits: false,
+        lang: {
+            numericSymbols: [null, 'M', 'G', 'T', 'P', 'E'],
+        },
     }
 
     return (
