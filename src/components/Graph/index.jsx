@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { string, bool } from 'prop-types'
-import axios from 'axios'
 
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
+import { getPopulationsByCountry, getEmissionsByCountry } from '../../utils/api'
 
 const Graph = ({ country, perCapita }) => {
     const [populations, setPopulations] = useState([])
@@ -16,17 +16,17 @@ const Graph = ({ country, perCapita }) => {
         if (country) {
             setEmissionsLoading(true)
             setPopulationsLoading(true)
-            axios.get(`http://localhost:3000/emissions?country=${country}`)
+            getEmissionsByCountry(country)
                 .then(({ data }) => {
                     setEmissionsLoading(false)
                     setEmissions(data.sort((a, b) => a.year - b.year))
                 })
-            axios.get(`http://localhost:3000/emissions?country=${country}&perCapita=true`)
+            getEmissionsByCountry(country, true)
                 .then(({ data }) => {
                     setEmissionsLoading(false)
                     setEmissionsPerCapita(data.sort((a, b) => a.year - b.year))
                 })
-            axios.get(`http://localhost:3000/populations?country=${country}`)
+            getPopulationsByCountry(country)
                 .then(({ data }) => {
                     setPopulationsLoading(false)
                     setPopulations(data.sort((a, b) => a.year - b.year))

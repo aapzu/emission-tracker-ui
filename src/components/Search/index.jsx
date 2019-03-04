@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { func } from 'prop-types'
-import axios from 'axios'
 import Autosuggest from 'react-autosuggest'
+import { getCountries } from '../../utils/api'
 
 import styles from './search.pcss'
 
@@ -22,14 +22,9 @@ const Search = ({ onChange }) => {
     const [countries, setCountries] = useState([])
     const inputEl = useRef(null)
 
-    // Only ~300 options, we can pre-load them here to get a faster search
-    useEffect(() => {
-
-    }, [])
-
     const onSuggestionsFetchRequested = ({ value: newVal }) => {
         setCountries([])
-        axios.get(`http://localhost:3000/countries?search=${newVal}`)
+        getCountries(newVal)
             .then(({ data }) => setCountries(data.map((d) => d.name)))
     }
     const onSuggestionsClearRequested = () => setCountries([])
