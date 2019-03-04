@@ -85,6 +85,9 @@ module.exports = {
             filename: isProduction() ? '[name].css' : '[name].[hash].css',
             chunkFilename: isProduction() ? '[id].css' : '[id].[hash].css',
         }),
+        new webpack.EnvironmentPlugin([
+            'API_BASE_URL',
+        ]),
     ].concat(isProduction() ? [
         // Production plugins
         new webpack.optimize.OccurrenceOrderPlugin(),
