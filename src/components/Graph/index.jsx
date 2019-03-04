@@ -2,13 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { string, bool } from 'prop-types'
 import axios from 'axios'
 
-import {
-    VictoryChart,
-    VictoryAxis,
-    VictoryLine,
-    VictoryTheme,
-    VictoryZoomContainer,
-} from 'victory'
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
 
 const Graph = ({ country, perCapita }) => {
     const [populations, setPopulations] = useState([])
@@ -16,7 +11,6 @@ const Graph = ({ country, perCapita }) => {
     const [emissionsPerCapita, setEmissionsPerCapita] = useState([])
     const [populationsLoading, setPopulationsLoading] = useState(false)
     const [emissionsLoading, setEmissionsLoading] = useState(false)
-    const [zoomDomain, setZoomDomain] = useState([])
 
     useEffect(() => {
         if (country) {
@@ -44,36 +38,95 @@ const Graph = ({ country, perCapita }) => {
     console.log(emissionsLoading)
     console.log(perCapita)
 
-    const populationData = populations.filter((p) => p.value).map(({ year, value }) => ({
-        x: new Date(year),
-        y: parseFloat(value),
-    }))
+    const populationData = populations.filter((p) => p.value).map(({ year, value }) => ([
+        new Date(year).getTime(),
+        parseFloat(value),
+    ]))
 
-    const emissionData = (perCapita ? emissionsPerCapita : emissions).filter((p) => p.value).map(({ year, value }) => ({
-        x: new Date(year),
-        y: parseFloat(value),
-    }))
+    const emissionData = (perCapita ? emissionsPerCapita : emissions).filter((p) => p.value).map(({ year, value }) => ([
+        new Date(year).getTime(),
+        parseFloat(value),
+    ]))
 
-    console.log(populationData)
+    console.log(emissionData)
+
+    const gridColor = '#333333'
+
+    const options = {
+        colors: ['#F92672', '#66D9EF', '#A6E22E', '#A6E22E'],
+        chart: {
+            // backgroundColor: '#272822',
+            style: {
+                fontFamily: 'IBM Plex Sans',
+                color: gridColor,
+            },
+        },
+        subtitle: {
+            style: {
+                color: '#A2A39C',
+            },
+            align: 'left',
+        },
+        legend: {
+            align: 'right',
+            verticalAlign: 'bottom',
+            itemStyle: {
+                fontWeight: 'normal',
+                color: gridColor,
+            },
+        },
+        title: false,
+        xAxis: {
+            title: {
+                text: 'Year',
+            },
+            type: 'datetime',
+            gridLineDashStyle: 'Dot',
+            gridLineWidth: 1,
+            gridLineColor: gridColor,
+            lineColor: gridColor,
+            minorGridLineColor: gridColor,
+            tickColor: gridColor,
+            tickWidth: 1,
+        },
+        yAxis: [{
+            title: {
+                text: 'Population',
+            },
+            gridLineDashStyle: 'Dot',
+            gridLineColor: gridColor,
+            lineColor: gridColor,
+            minorGridLineColor: gridColor,
+            tickColor: gridColor,
+            tickWidth: 1,
+        }, {
+            title: {
+                text: perCapita ? 'CO2 Emissions Per Capita' : 'CO2 Emissions',
+            },
+            gridLineDashStyle: 'Dot',
+            gridLineColor: gridColor,
+            lineColor: gridColor,
+            minorGridLineColor: gridColor,
+            tickColor: gridColor,
+            tickWidth: 1,
+            opposite: true,
+        }],
+        series: [{
+            name: 'Population',
+            data: populationData,
+        }, {
+            name: perCapita ? 'CO2 Emissions Per Capita' : 'CO2 Emissions',
+            data: emissionData,
+            yAxis: 1,
+        }],
+        credits: false,
+    }
 
     return (
-        <VictoryChart
-            theme={VictoryTheme.material}
-            scale={{
-                x: 'time',
-            }}
-            containerComponent={
-                <VictoryZoomContainer
-                    zoomDimension="x"
-                    zoomDomain={zoomDomain}
-                    onZoomDomainChange={setZoomDomain}
-                />
-            }
-        >
-            <VictoryLine data={emissionData} />
-            <VictoryAxis />
-            <VictoryAxis dependentAxis />
-        </VictoryChart>
+        <HighchartsReact
+            highcharts={Highcharts}
+            options={options}
+        />
     )
 }
 

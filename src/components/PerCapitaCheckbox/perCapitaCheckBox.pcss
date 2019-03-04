@@ -1,0 +1,57 @@
+.perCapitaCheckbox {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 7px 31px 5px;
+}
+
+.checkbox {
+    position: relative;
+    display: inline-block;
+    height: 28px;
+    width: 28px;
+}
+
+.checkbox label {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 28px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 28px;
+}
+
+.checkbox label:after {
+    border: 2px solid #fff;
+    border-top: none;
+    border-right: none;
+    content: "";
+    height: 6px;
+    left: 7px;
+    opacity: 0;
+    position: absolute;
+    top: 8px;
+    transform: rotate(-45deg);
+    width: 12px;
+}
+
+.checkbox input[type="checkbox"] {
+    visibility: hidden;
+}
+
+.checkbox input[type="checkbox"]:checked + label {
+    background-color: #66D9EF;
+    border-color: #66D9EF;
+}
+
+.checkbox input[type="checkbox"]:checked + label:after {
+    opacity: 1;
+}
+
+.text {
+    margin: 1px 10px 0;
+    display: inline-block;
+}

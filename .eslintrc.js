@@ -17,6 +17,7 @@ module.exports = exports = {
         }],
         'curly': [ERROR, 'all'],
         'indent': [ERROR, 4],
+        'jsx-a11y/label-has-for': DISABLED,
         'max-len': [ERROR, {
             code: 150
         }],
@@ -44,6 +45,7 @@ module.exports = exports = {
         }],
         'react/jsx-indent': [ERROR, 4],
         'react/jsx-indent-props': [ERROR, 4],
+        'react/no-array-index-key': DISABLED,
         'react/require-default-props': DISABLED,
         'semi': [ERROR, 'never'],
     }

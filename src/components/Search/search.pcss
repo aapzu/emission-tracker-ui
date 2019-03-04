@@ -1,25 +1,153 @@
 .search {
     width: 100%;
+    height: 100%;
     position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+body {
+    font-family: Helvetica, sans-serif;
+}
+
+.outerContainer {
+    display: inline-block;
+    position: relative;
+    height: 50px;
+    margin-bottom: -15px;
+    margin-right: 20px;
+}
+
+.icon {
+    position: absolute;
+    height: 20px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.container {
+    position: relative;
+    display: inline-block;
+    transition: all 1s;
+    min-width: 50px;
+    height: 50px;
+    background: #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: 4px solid white;
+    padding: 5px;
+    box-shadow: 0px 0px 6px 0px rgba(153,153,153,1);
+    margin-bottom: -20px;
+    background: none;
+    z-index: 2;
+
+    &:hover {
+        cursor: text;
+    }
+}
+
+.container:hover .input,
+.container .input:focus {
+    display: block;
+    width: 200px;
+    padding: 0 15px;
+}
+
+.container:hover .icon {
+    display: none;
 }
 
 .input {
-    width: 100%;
-    height: 30px;
-    border: 1px solid black;
+    background: none;
+    transition: all 0.5s;
+    width: 0px;
+    height: 100%;
+    border-radius: 25px;
+    line-height: 30px;
+    outline: 0;
+    border: 0;
+    font-size: 1em;
+    padding: 0;
+    background: #FFFFFF;
 }
 
-.suggestions {
+.containerOpen .input {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.suggestionsContainer {
+    display: none;
+}
+
+.containerOpen .suggestionsContainer {
+    display: block;
     position: absolute;
-    top: 100%;
-    width: 100%;
-    margin-top: 4px;
-    padding-top: 5px;
-    background-color: #FFFFFF;
-    max-height: 300px;
-    overflow: auto;
+    width: 240px;
+    box-shadow: 0px 0px 6px 0px rgba(153,153,153,1);
+    font-family: Helvetica, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    border-radius: 25px;
+    right: -7px;
+    padding-top: 0px;
+    top: 55px;
+    z-index: 0;
+    background: none;
+    overflow-x: hidden;
+}
+
+.suggestionsList {
+    margin: 0;
+    list-style-type: none;
+    background: #fff;
+    border-radius: 25px;
+    padding: 0;
+    max-height: 420px;
+    overflow-y: auto;
 }
 
 .suggestion {
-    height: 30px;
+    padding: 10px 20px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #f4f4f4;
+    }
+    &:first-child {
+        padding-top: 15px;
+    }
+    &:last-child {
+        padding-bottom: 15px;
+    }
+    &:not(:first-child) {
+        border-top: 1px solid #ddd;
+    }
+}
+
+.suggestionFocused {
+    background-color: #0C7EAF;
+    color: #fff;
+}
+
+.suggestionContent {
+    display: flex;
+    align-items: center;
+    background-repeat: no-repeat;
+}
+
+.name {
+    margin-left: 68px;
+    line-height: 45px;
+}
+
+.highlight {
+    color: #ee0000;
+    font-weight: bold;
+}
+
+.suggestionFocused .highlight {
+    color: #120000;
 }
