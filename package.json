@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
+  "engines": {
+    "node": ">=8"
+  },
   "scripts": {
     "start": "webpack-dev-server --hot",
-    "build": "node --max_old_space_size=4096 ./node_modules/.bin/webpack",
-    "test": "jest ./test/* ./src/shared/test/* ./src/userpages/tests/* ./src/editor/tests/*",
-    "flow": "flow",
-    "flow-stop": "flow stop",
+    "build": "webpack",
     "heroku-postbuild": "npm run build"
   },
   "keywords": [],
