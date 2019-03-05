@@ -82,8 +82,8 @@ module.exports = {
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
-            filename: isProduction() ? '[name].css' : '[name].[hash].css',
-            chunkFilename: isProduction() ? '[id].css' : '[id].[hash].css',
+            filename: isProduction() ? '[name].[hash].css' : '[name].css',
+            chunkFilename: isProduction() ? '[id].[hash].css' : '[id].css',
         }),
         new webpack.EnvironmentPlugin([
             'API_BASE_URL',
