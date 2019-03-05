@@ -47,6 +47,7 @@ module.exports = exports = {
         'react/jsx-indent-props': [ERROR, 4],
         'react/no-array-index-key': DISABLED,
         'react/require-default-props': DISABLED,
+        'react/forbid-prop-types': DISABLED,
         'semi': [ERROR, 'never'],
     }
 }

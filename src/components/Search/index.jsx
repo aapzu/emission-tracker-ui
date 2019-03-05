@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { func } from 'prop-types'
+import { func, object } from 'prop-types'
 import Autosuggest from 'react-autosuggest'
 import { getCountries } from '../../utils/api'
 
@@ -16,6 +16,17 @@ const Icon = () => (
         />
     </svg>
 )
+
+const InputContainer = (inputProps) => (
+    <div className={styles.inputContainer}>
+        <input className={styles.input} {...inputProps} />
+        <Icon />
+    </div>
+)
+
+InputContainer.propTypes = {
+    inputProps: object,
+}
 
 const Search = ({ onChange }) => {
     const [value, setValue] = useState('')
@@ -42,25 +53,23 @@ const Search = ({ onChange }) => {
 
     return (
         <div className={styles.search}>
-            <div className={styles.outerContainer}>
-                <Autosuggest
-                    suggestions={countries}
-                    onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-                    onSuggestionsClearRequested={onSuggestionsClearRequested}
-                    getSuggestionValue={getSuggestionValue}
-                    renderSuggestion={renderSuggestion}
-                    onSuggestionSelected={onSuggestionSelected}
-                    onBlur={onBlur}
-                    focusInputOnSuggestionClick={false}
-                    inputProps={{
-                        value,
-                        placeholder: 'Search for a country',
-                        onChange: onInputChange,
-                    }}
-                    theme={styles}
-                />
-                <Icon />
-            </div>
+            <Autosuggest
+                suggestions={countries}
+                onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={onSuggestionsClearRequested}
+                getSuggestionValue={getSuggestionValue}
+                renderSuggestion={renderSuggestion}
+                onSuggestionSelected={onSuggestionSelected}
+                onBlur={onBlur}
+                renderInputComponent={InputContainer}
+                focusInputOnSuggestionClick={false}
+                theme={styles}
+                inputProps={{
+                    value,
+                    placeholder: 'Search for a country',
+                    onChange: onInputChange,
+                }}
+            />
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import 'antd/dist/antd.css'
+import 'bootstrap/dist/css/bootstrap-grid.css'
 
 import './main.css'
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Container, Row, Col } from 'react-grid-system'
+import classnames from 'classnames'
+import MediaQuery from 'react-responsive'
 
 import Search from '../Search'
 import Graph from '../Graph'
@@ -37,39 +38,40 @@ const App = () => {
     }
 
     return (
-        <Container>
-            <Row className={styles.titleRow}>
-                <Col
-                    md={8}
-                    lg={8}
-                    offset={{
-                        md: 2,
-                        lg: 2,
-                    }}
-                >
-                    <Row>
-                        <Col md={8} lg={8}>
+        <div className="container">
+            <div className={classnames('row', styles.app)}>
+                <div className="col-md-10 offset-md-1">
+                    <div className="row">
+                        <MediaQuery maxWidth={575}>
+                            <div className="col-12">
+                                <Search onChange={setCountry} />
+                            </div>
+                        </MediaQuery>
+                        <div className="col-md-8">
                             <h1 className={styles.title}>CO<sup>2</sup> emissions of {country}</h1>
-                        </Col>
-                        <Col md={8} lg={4}>
-                            <Search onChange={setCountry} />
-                        </Col>
-                        <Col>
+                        </div>
+                        <MediaQuery minWidth={576}>
+                            <div className="col-md-4">
+                                <Search onChange={setCountry} />
+                            </div>
+                        </MediaQuery>
+                        <div className="col-12">
                             <PerCapitaCheckbox perCapita={perCapita} onChange={setPerCapita} />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div
+                            className="col-12"
                             style={{
                                 padding: '15px 0 10px',
                             }}
                         >
                             <Graph country={country} perCapita={perCapita} />
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
-        </Container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
 
