@@ -1,8 +1,8 @@
-# reaktor-2019-ui
+# emission-tracker-ui
 
-https://reaktor-aapzu-2019.herokuapp.com/
+https://aapzu-emission-tracker.herokuapp.com/
 
-The UI for Reaktor's coding exercise of 2019. Made with React+ES6 and compiled with Webpack. The UI requires the [API](https://github.com/aapzu/reaktor-2019-server) to be running and given as a parameter.
+The UI for Reaktor's coding exercise of 2019. Made with React+ES6 and compiled with Webpack. The UI requires the [API](https://github.com/aapzu/emission-tracker-api) to be running and given as a parameter.
 
 ## How to
 To run the UI run the following:
