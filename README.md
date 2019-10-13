@@ -1,3 +1,5 @@
+[![](https://api.travis-ci.org/Aapzu/emission-tracker-ui.svg?branch=master)](https://travis-ci.org/Aapzu/emission-tracker-ui)
+
 # emission-tracker-ui
 
 https://aapzu-emission-tracker.herokuapp.com/
